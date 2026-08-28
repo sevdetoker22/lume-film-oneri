@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lûme — Film Seçkisi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <style>
+      .poster-art { display:block; aspect-ratio:2 / 3; overflow:hidden; margin:-14px -14px 18px; border-radius:9px 9px 0 0; background:#e8e1d7; }
+      .poster-art img { width:100%; height:100%; object-fit:cover; transition:transform .45s ease; }
+      .recommendation:hover .poster-art img { transform:scale(1.04); }
+      .chat-compact { min-height:0; padding:24px 27px; }.chat-compact .compact h2 { font-size:26px; }.chat-compact .search-description { margin:9px 0 13px; }.chat-compact .search { min-height:46px; }.chat-compact .hint { margin-top:8px; }
+      .secret-card { display:grid; grid-template-columns:74px minmax(0,1fr); column-gap:14px; align-items:center; padding:10px; background:#fffdfa; }.secret-card .secret-poster { grid-row:1 / span 3; width:74px; aspect-ratio:2 / 3; overflow:hidden; border-radius:7px; background:#e8e1d7; }.secret-card .secret-poster img { width:100%; height:100%; object-fit:cover; }.secret-card .secret-eyebrow { margin:0 0 4px; color:#8066a8; font:500 9px "DM Mono",monospace; letter-spacing:.1em; }.secret-card h3 { margin:0; font-size:20px; }.secret-card .secret-meta { margin:3px 0 0; color:#777167; font:500 9px "DM Mono",monospace; }.secret-card .secret-note { margin:5px 0 0; display:-webkit-box; overflow:hidden; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:12px; line-height:1.35; }
+      .survey-box { max-width:500px; }.survey-box.survey-result-mode { max-width:650px; }.survey-demographics { display:grid; gap:14px; margin-top:20px; }.survey-age { width:100%; padding:12px; border:1px solid #d8d1c6; border-radius:8px; color:#211f1c; background:#fffdfa; outline:none; }.survey-age:focus { border-color:#8066a8; }.gender-label { color:#777167; font:500 10px "DM Mono",monospace; letter-spacing:.08em; }.gender-options { display:flex; flex-wrap:wrap; gap:7px; }.gender-option,.survey-next { padding:10px 12px; border:1px solid #d8d1c6; border-radius:8px; color:#211f1c; background:#fffdfa; font-size:12px; }.gender-option.selected,.gender-option:hover { border-color:#8066a8; background:#f1e9f3; }.survey-next { justify-self:end; min-width:112px; border-color:#8066a8; color:#fff; background:#8066a8; font-weight:600; }.survey-next:disabled { cursor:not-allowed; opacity:.45; }.survey-demographics[hidden],.survey-options[hidden],.survey-result[hidden],.survey-progress[hidden],.survey-box h2[hidden],.survey-box > p[hidden] { display:none !important; }
+      .survey-question-main { margin:13px 0 0 !important; color:#211f1c !important; font:500 31px/1.08 "Playfair Display",serif; letter-spacing:-.04em; }.survey-option { padding:13px 14px; }.survey-result { text-align:left; }.survey-result-label { margin:0 0 15px; color:#8066a8; font:500 10px "DM Mono",monospace; letter-spacing:.12em; }.survey-result-grid { display:grid; grid-template-columns:minmax(180px,220px) minmax(0,1fr); gap:25px; align-items:center; }.survey-result-poster { aspect-ratio:2 / 3; overflow:hidden; border-radius:10px; background:#e8e1d7; box-shadow:0 13px 32px #40302b2b; }.survey-result-poster img { display:block; width:100%; height:100%; object-fit:cover; }.survey-result h2 { margin:0 0 7px; font-size:clamp(30px,5vw,44px); }.survey-result-meta { margin:0; color:#777167; font:500 10px/1.7 "DM Mono",monospace; letter-spacing:.03em; }.survey-result-reason { margin:17px 0 0; color:#5f594f; font:15px/1.55 "DM Sans",sans-serif; }.survey-result-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:23px; }.survey-result-actions button { padding:11px 14px; border:1px solid #8066a8; border-radius:8px; background:#8066a8; color:#fff; font-size:12px; font-weight:600; }.survey-result-actions .secondary { background:#fffdfa; color:#51415f; }.survey-result-loading { min-height:310px; display:grid; place-items:center; color:#777167; font-size:13px; text-align:center; }
+      @media (max-width:520px) { .chat-compact { padding:21px; }.secret-card { grid-template-columns:64px minmax(0,1fr); }.secret-card .secret-poster { width:64px; }.survey-result-grid { grid-template-columns:130px minmax(0,1fr); gap:16px; }.survey-result-reason { grid-column:1 / -1; margin-top:0; }.survey-result-actions { grid-column:1 / -1; margin-top:0; } }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="topbar" aria-label="Ana navigasyon">
+        <a href="#focus" class="brand" aria-label="Lûme ana sayfa"><span class="brand-mark">◒</span>Lûme</a>
+        <div class="nav-links"><a class="active" href="#focus">Keşfet</a><a href="#quiz">Quiz</a></div>
+        <div class="nav-end"><span class="live-status"><i></i>hazır</span><span id="current-time" class="clock">--:--</span></div>
+      </nav>
+
+      <section id="focus" class="focus-card" aria-labelledby="mood-title">
+        <div class="card-heading"><div><p class="eyebrow"><span></span>RUH HALİ PUSULASI</p><h1 id="mood-title">Bu akşam neye ihtiyacın var?</h1></div><p class="quiet-copy">Sana eşlik edecek üç film önerelim.</p></div>
+        <form id="mood-form" class="mood-form"><label class="sr-only" for="mood-input">Ruh halini yaz</label><input id="mood-input" placeholder="Örn. yorgunum, hafif bir şey istiyorum" /><button type="submit">Bana iyi gelecek şeyi bul <span>→</span></button></form>
+        <div id="recommendations" class="recommendations" aria-live="polite"><p class="empty-note">Bir duygu, bir kelime ya da aklından geçen ilk şeyi yaz.</p></div>
+        <article id="secret-card" class="secret-card" hidden aria-live="polite"></article>
+      </section>
+
+      <section class="explore-grid" aria-label="Keşfet">
+        <div class="search-card chat-compact">
+          <div class="card-heading compact"><div><p class="eyebrow"><span></span>FİLM SOHBETİ</p><h2>Ne izlemek istersin?</h2></div><span class="data-count">YEREL KATALOG</span></div>
+          <p class="search-description">Ruh halini, sevdiğin türü ya da nasıl bir akşam istediğini yaz.</p>
+          <form id="search-form" class="search" autocomplete="off"><label class="sr-only" for="query">Film isteğini yaz</label><input id="query" name="query" placeholder="Bu akşam hafif ve komik bir film istiyorum" autofocus /><button type="submit" aria-label="Öneri al"><span>→</span></button></form><p class="hint"><span></span>Yerel yapay zekâ öneriye hazır</p>
+          <section id="result" aria-live="polite" hidden><p class="result-label">LÛME ÖNERİSİ</p><p id="answer" class="answer"></p><details id="sources"><summary>Katalogdaki seçenekleri gör</summary><div id="matches"></div></details></section>
+        </div>
+        <div class="quiz-card">
+          <p class="eyebrow"><span></span>GECE OYUNU</p><div class="quiz-intro"><p class="quiz-number">01</p><h2>Merakına küçük bir kıvılcım.</h2><p>Rastgele bir trivia kartı aç; cevap vermek zorunda değilsin.</p></div><button id="quiz-button" class="quiz-trigger" type="button">Bir soru seç <span>↗</span></button>
+          <section id="quiz" aria-live="polite" hidden><div class="quiz-topline"><p class="result-label">TRIVIA</p><span id="quiz-category"></span></div><p id="quiz-question" class="quiz-question"></p><div id="quiz-choices" class="quiz-choices"></div><p id="quiz-feedback" class="quiz-feedback" hidden></p><button id="next-question" class="next-question" type="button" hidden>Bir tane daha <span>→</span></button></section>
+        </div>
+      </section>
+      <footer><span>© 2026 Lûme</span><span>film öneri aracı</span></footer>
+    </main>
+    <section id="survey-modal" class="survey-modal" aria-modal="true" role="dialog" aria-labelledby="survey-title">
+      <div class="survey-box">
+        <p id="survey-progress" class="survey-progress">1 / 5</p><h2 id="survey-title">Seni biraz tanıyalım.</h2><p id="survey-question">Önerileri daha iyi kişiselleştirmek için iki kısa bilgi.</p>
+        <div id="survey-demographics" class="survey-demographics">
+          <input id="survey-age" class="survey-age" type="number" min="13" max="120" inputmode="numeric" placeholder="Yaşın" aria-label="Yaşın" />
+          <div><p class="gender-label">CİNSİYET</p><div id="gender-options" class="gender-options"><button class="gender-option" type="button" data-gender="Kadın">Kadın</button><button class="gender-option" type="button" data-gender="Erkek">Erkek</button><button class="gender-option" type="button" data-gender="Belirtmek istemiyorum">Belirtmek istemiyorum</button></div></div>
+          <button id="survey-demographics-next" class="survey-next" type="button" disabled>Devam et →</button>
+        </div>
+        <div id="survey-options" class="survey-options" hidden></div>
+        <div id="survey-result" class="survey-result" hidden aria-live="polite"></div>
+      </div>
+    </section>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
