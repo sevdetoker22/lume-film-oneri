@@ -96,6 +96,56 @@ const zodiacWhyCopy = {
   'Balık': ['Balık, gerçekliğin biraz yumuşadığı hikâyelerde iyi hisseder; bu seçki hayal gücüne alan açıyor.', ['Hayal gücüne yumuşak bir alan açar.', 'Duygusal tonuyla sana eşlik eder.', 'Gerçeklikten nazikçe uzaklaştırır.']]
 };
 
+const zodiacMovieLibrary = {
+  aang: ['Avatar Aang: Son Havabükücü', '2026', ['Animasyon', 'Aksiyon', 'Macera'], 9.2, 'https://image.tmdb.org/t/p/w500/3sgnSfNT27Bx5O5ukr7B26mhEQq.jpg'],
+  switch: ['Yerime Geç', '2026', ['Macera', 'Animasyon', 'Aile'], 8.9, 'https://image.tmdb.org/t/p/w500/qOGVmgnIO71nIffkGmGtGmhHLdN.jpg'],
+  demon: ['Demon Slayer: Sonsuzluk Kalesi', '2025', ['Animasyon', 'Aksiyon', 'Fantastik'], 8.8, 'https://image.tmdb.org/t/p/w500/eIM28fkVIhPKkjOjfS01UAZXPM8.jpg'],
+  project: ['Kurtuluş Projesi', '2026', ['Bilim Kurgu', 'Macera'], 8.6, 'https://image.tmdb.org/t/p/w500/suFNqtGOi0BsBI3uJPKkDXCwgVI.jpg'],
+  chainsaw: ['Chainsaw Man - The Movie: Reze Arc', '2025', ['Animasyon', 'Aksiyon', 'Romantik'], 8.5, 'https://image.tmdb.org/t/p/w500/dUbacBfy6M0EBLPssQhJFhtHxIU.jpg'],
+  darkKnight: ['Kara Şövalye', '2008', ['Aksiyon', 'Suç', 'Gerilim'], 8.5, 'https://image.tmdb.org/t/p/w500/7IPCEr7ifdH5CtU97QG7XgAAtOp.jpg'],
+  returnKing: ['Yüzüklerin Efendisi: Kralın Dönüşü', '2003', ['Macera', 'Fantastik', 'Aksiyon'], 8.5, 'https://image.tmdb.org/t/p/w500/qwigzi0gOcXZRxbm488wT31t2UZ.jpg'],
+  interstellar: ['Yıldızlararası', '2014', ['Macera', 'Dram', 'Bilim Kurgu'], 8.5, 'https://image.tmdb.org/t/p/w500/xbiycuc84TrieEWwkkuH2hoEa9S.jpg'],
+  shawshank: ['Esaretin Bedeli', '1995', ['Dram', 'Suç'], 8.7, 'https://image.tmdb.org/t/p/w500/7T2SDS5efuJiK45oyKoEzf9RKjw.jpg'],
+  godfather: ['Baba', '1973', ['Dram', 'Suç'], 8.7, 'https://image.tmdb.org/t/p/w500/vseIVRdN4xasYwStQIi6SI7DcEu.jpg'],
+  michael: ['Michael', '2026', ['Müzik', 'Dram'], 8.7, 'https://image.tmdb.org/t/p/w500/Awq135QNhuvZ99VyNZgSlnKxFW2.jpg'],
+  godfather2: ['Baba II', '1974', ['Dram', 'Suç'], 8.6, 'https://image.tmdb.org/t/p/w500/3Yaj5y25485A2YeixwayoP8ywZ0.jpg'],
+  twelveAngry: ['12 Öfkeli Adam', '1960', ['Dram'], 8.6, 'https://image.tmdb.org/t/p/w500/jA3MHw8Nl4sevDqhgS8ZptwXN8b.jpg'],
+  schindler: ["Schindler'in Listesi", '1994', ['Dram', 'Tarih'], 8.6, 'https://image.tmdb.org/t/p/w500/2mOH8EqumIaepdP94e0cy4Xnyg7.jpg'],
+  greenMile: ['Yeşil Yol', '2000', ['Fantastik', 'Dram', 'Suç'], 8.5, 'https://image.tmdb.org/t/p/w500/6ZNnKbdDRQm0ftkq3OKiDrwZkIN.jpg'],
+  parasite: ['Parazit', '2019', ['Komedi', 'Gerilim', 'Dram'], 8.5, 'https://image.tmdb.org/t/p/w500/nx7TmJDMkgyBc09DVo5ze52Wt3F.jpg'],
+  pulp: ['Ucuz Roman', '1995', ['Gerilim', 'Suç', 'Komedi'], 8.5, 'https://image.tmdb.org/t/p/w500/AgY33Wtg4737MhYopJSFyKWhKsO.jpg'],
+  forrest: ['Forrest Gump', '1994', ['Komedi', 'Dram', 'Romantik'], 8.5, 'https://image.tmdb.org/t/p/w500/Cw4hIUIAmSYfK9QfaUW5igp9La.jpg'],
+  lifeBeautiful: ['Hayat Güzeldir', '1997', ['Komedi', 'Dram'], 8.4, 'https://image.tmdb.org/t/p/w500/bPliFlnRsZmH9Mr7F2CDqRsh50H.jpg'],
+  psycho: ['Sapık', '1960', ['Gerilim', 'Gizem'], 8.4, 'https://image.tmdb.org/t/p/w500/dx1GWvjwCSYgQATVyS1D1OuTtni.jpg'],
+  seven: ['Yedi', '1996', ['Suç', 'Gizem', 'Gerilim'], 8.4, 'https://image.tmdb.org/t/p/w500/3qpOnTbxPK2HeHObBHttcvQHLGI.jpg'],
+  spiritedAway: ['Ruhların Kaçışı', '2004', ['Animasyon', 'Aile', 'Fantastik'], 8.5, 'https://image.tmdb.org/t/p/w500/xvOEOMCzfV8qXkd1n1btZ8q4Psd.jpg'],
+  fellowship: ['Yüzüklerin Efendisi: Yüzük Kardeşliği', '2001', ['Macera', 'Fantastik', 'Aksiyon'], 8.4, 'https://image.tmdb.org/t/p/w500/37kdeAEyw8YlVLaAhYazBRAni9S.jpg'],
+  twoTowers: ['Yüzüklerin Efendisi: İki Kule', '2002', ['Macera', 'Fantastik', 'Aksiyon'], 8.4, 'https://image.tmdb.org/t/p/w500/AaiH8Yocbg0VMfs0PyXJTJbWrp2.jpg'],
+  goodfellas: ['Sıkı Dostlar', '1990', ['Dram', 'Suç'], 8.4, 'https://image.tmdb.org/t/p/w500/oMPDt1rNLYEVRpigNLaiTnibVn8.jpg'],
+  cityGod: ['Tanrı Kent', '2003', ['Dram', 'Suç'], 8.4, 'https://image.tmdb.org/t/p/w500/ltoNh0NJ8hJTOKbuRvTNc8918Mi.jpg'],
+  yourName: ['Senin Adın', '2016', ['Animasyon', 'Romantik', 'Dram'], 8.5, 'https://image.tmdb.org/t/p/w500/jkK6XdJqSCm7maDV8xgbE0JVNIP.jpg'],
+  cinema: ['Cennet Sineması', '1990', ['Dram', 'Romantik'], 8.4, 'https://image.tmdb.org/t/p/w500/3hcXpztAe9L6VLpDGwohS01ZSxw.jpg'],
+  fightClub: ['Dövüş Kulübü', '1999', ['Dram', 'Gerilim'], 8.4, 'https://image.tmdb.org/t/p/w500/yjMuqAyJUoQZGWsZ0vZuYj5inAR.jpg'],
+  highLow: ['Yüksek ve Alçak', '1963', ['Dram', 'Suç', 'Gerilim'], 8.4, 'https://image.tmdb.org/t/p/w500/3faOft1rjJrIahaLHof9AwDth2z.jpg'],
+  whiplash: ['Whiplash', '2014', ['Dram', 'Müzik', 'Gerilim'], 8.4, 'https://image.tmdb.org/t/p/w500/q3Ev5vIC3fklycV9kfpVIdbRe14.jpg'],
+  dilwale: ['Cesur Yürek Gelini Alır', '1995', ['Komedi', 'Dram', 'Romantik'], 8.5, 'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg']
+};
+
+const zodiacSelections = {
+  'Koç': ['aang', 'demon', 'project', 'darkKnight', 'returnKing', 'interstellar', 'fellowship', 'twoTowers'],
+  'Boğa': ['shawshank', 'godfather', 'godfather2', 'twelveAngry', 'greenMile', 'cinema', 'forrest', 'lifeBeautiful'],
+  'İkizler': ['parasite', 'pulp', 'psycho', 'seven', 'yourName', 'forrest', 'whiplash', 'cityGod'],
+  'Yengeç': ['spiritedAway', 'greenMile', 'shawshank', 'lifeBeautiful', 'forrest', 'cinema', 'twelveAngry', 'yourName'],
+  'Aslan': ['michael', 'interstellar', 'returnKing', 'aang', 'demon', 'fellowship', 'twoTowers', 'darkKnight'],
+  'Başak': ['godfather', 'godfather2', 'goodfellas', 'cityGod', 'seven', 'psycho', 'twelveAngry', 'parasite'],
+  'Terazi': ['yourName', 'cinema', 'forrest', 'lifeBeautiful', 'parasite', 'dilwale', 'spiritedAway', 'chainsaw'],
+  'Akrep': ['darkKnight', 'parasite', 'pulp', 'fightClub', 'psycho', 'seven', 'highLow', 'whiplash'],
+  'Yay': ['aang', 'switch', 'project', 'returnKing', 'interstellar', 'fellowship', 'twoTowers', 'dilwale'],
+  'Oğlak': ['shawshank', 'godfather', 'godfather2', 'twelveAngry', 'schindler', 'greenMile', 'whiplash', 'michael'],
+  'Kova': ['aang', 'demon', 'project', 'spiritedAway', 'interstellar', 'yourName', 'returnKing', 'chainsaw'],
+  'Balık': ['yourName', 'spiritedAway', 'lifeBeautiful', 'greenMile', 'chainsaw', 'cinema', 'returnKing', 'dilwale']
+};
+
 function showColumnPage() {
   mainPage.hidden = true;
   columnPage.hidden = false;
@@ -116,17 +166,11 @@ async function loadZodiac(zodiac) {
   zodiacCaption.textContent = caption;
   zodiacWhy.innerHTML = `<strong>Neden ${zodiac}?</strong> ${zodiacWhyCopy[zodiac][0]}`;
   zodiacNav.querySelectorAll('button').forEach((item) => item.classList.toggle('active', item.dataset.zodiac === zodiac));
-  zodiacMovies.innerHTML = '<p class="column-loading">Seçkin hazırlanıyor…</p>';
-  try {
-    const response = await fetch('/api/zodiac-recommend', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ zodiac })
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Seçki hazırlanamadı.');
-    zodiacMovies.innerHTML = data.movies.map((movie, index) => '<article class="column-movie"><img src="' + (movie.poster_url || posterFor(movie)) + '" alt="' + escapeHtml(movie.title) + ' afişi" /><div class="column-movie-copy"><h3>' + escapeHtml(movie.title) + '</h3><p class="column-meta">' + escapeHtml(movie.year) + ' · ' + escapeHtml(movie.genres.join(' · ')) + (movie.rating ? ` · ★ ${Number(movie.rating).toFixed(1)}` : '') + '</p><p>' + escapeHtml(movie.note) + '</p><p class="column-match">' + escapeHtml(zodiacWhyCopy[zodiac][1][index % zodiacWhyCopy[zodiac][1].length]) + '</p></div></article>').join('');
-  } catch (error) {
-    zodiacMovies.innerHTML = '<p class="column-loading">' + escapeHtml(error.message) + '</p>';
-  }
+  const movies = zodiacSelections[zodiac].map((key) => {
+    const [title, year, genres, rating, poster_url] = zodiacMovieLibrary[key];
+    return { title, year, genres, rating, poster_url };
+  });
+  zodiacMovies.innerHTML = movies.map((movie, index) => '<article class="column-movie"><img src="' + (movie.poster_url || posterFor(movie)) + '" alt="' + escapeHtml(movie.title) + ' afişi" /><div class="column-movie-copy"><h3>' + escapeHtml(movie.title) + '</h3><p class="column-meta">' + escapeHtml(movie.year) + ' · ' + escapeHtml(movie.genres.join(' · ')) + (movie.rating ? ` · ★ ${Number(movie.rating).toFixed(1)}` : '') + '</p><p class="column-match">' + escapeHtml(zodiacWhyCopy[zodiac][1][index % zodiacWhyCopy[zodiac][1].length]) + '</p></div></article>').join('');
 }
 
 columnNav.addEventListener('click', (event) => { event.preventDefault(); showColumnPage(); });
