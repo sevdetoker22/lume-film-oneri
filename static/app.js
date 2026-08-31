@@ -5,6 +5,9 @@ const result = document.querySelector('#result');
 const answer = document.querySelector('#answer');
 const matches = document.querySelector('#matches');
 const quizButton = document.querySelector('#quiz-button');
+const quizNav = document.querySelector('#quiz-nav');
+const quizHome = document.querySelector('#quiz-home');
+const quizCard = document.querySelector('.quiz-card');
 const quiz = document.querySelector('#quiz');
 const quizCategory = document.querySelector('#quiz-category');
 const quizQuestion = document.querySelector('#quiz-question');
@@ -250,9 +253,16 @@ function escapeHtml(value) {
 
 quizButton.addEventListener('click', loadQuiz);
 nextQuestion.addEventListener('click', loadQuiz);
+quizNav.addEventListener('click', (event) => {
+  event.preventDefault();
+  quizHome.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (quiz.hidden) loadQuiz();
+});
 
 async function loadQuiz() {
   quiz.hidden = false;
+  quizCard.classList.add('is-playing');
+  quizButton.hidden = true;
   quizButton.disabled = true;
   quizQuestion.textContent = 'Soru hazırlanıyor…';
   quizChoices.innerHTML = '';
