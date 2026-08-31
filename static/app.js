@@ -36,6 +36,7 @@ const zodiacNav = document.querySelector('#zodiac-nav');
 const zodiacLabel = document.querySelector('#zodiac-label');
 const zodiacTitle = document.querySelector('#zodiac-title');
 const zodiacCaption = document.querySelector('#zodiac-caption');
+const zodiacWhy = document.querySelector('#zodiac-why');
 const zodiacMovies = document.querySelector('#zodiac-movies');
 const featuredPoster = document.querySelector('#featured-poster');
 const featuredTitle = document.querySelector('#featured-title');
@@ -80,6 +81,21 @@ const zodiacCopy = {
   'Balık': ['Biraz hayal, biraz şiir.', 'Duygusal ve düşsel bir akşama eşlik edecek filmler.']
 };
 
+const zodiacWhyCopy = {
+  'Koç': ['Koç enerjisi durup düşünmekten çok harekete geçmeyi sever; bu seçki sana yüksek tempo ve cesur kararlar bırakıyor.', ['Seni ilk dakikada hikâyenin içine çeker.', 'Enerjini düşürmeden sürprizler sunar.', 'Güçlü karakterlerin risk alma cesaretine eşlik eder.']],
+  'Boğa': ['Boğa için iyi bir film, acele ettirmeden içine alan ve sonunda sıcaklık bırakan filmdir; bu seçki tam o gece için.', ['Görsel dünyasıyla küçük bir keyif alanı açar.', 'Rahat bir ritimle sana nefes aldırır.', 'Konfor hissini güçlü bir hikâyeyle buluşturur.']],
+  'İkizler': ['İkizler merakı canlı tutan, yön değiştiren hikâyeleri sever; bu filmlerde her an yeni bir fikir var.', ['Zihnini meşgul eden küçük oyunlar taşır.', 'Tahmin etmesi zor dönüşlerle seni canlı tutar.', 'Konuşacak yeni bir detay bırakır.']],
+  'Yengeç': ['Yengeç için en iyi seçki, duygusu gerçek gelen ve bağ kurabileceği karakterler taşıyandır.', ['Duygusal bağ kurabileceğin bir dünya yaratır.', 'Kalbe yakın, tanıdık bir sıcaklık sunar.', 'Film bittikten sonra da yanında kalır.']],
+  'Aslan': ['Aslan enerjisi için perde biraz daha büyük açılmalı; bu seçkide ilham, tutku ve güçlü sahneler var.', ['Sana büyük bir hikâyenin parçasıymışsın hissi verir.', 'Tutkulu karakterleriyle ilham taşır.', 'Işığını kaybetmeyen bir enerji sunar.']],
+  'Başak': ['Başak, iyi kurulmuş ayrıntıları ve ince işçiliği fark eder; bu filmler gözden kaçan detaylarıyla ödüllendirir.', ['İncelikli yapısıyla dikkatini canlı tutar.', 'Her sahnesinde küçük bir ipucu saklar.', 'Düzenli kurgusuyla tatmin edici bir akış sunar.']],
+  'Terazi': ['Terazi için seçim hem hissettirmeli hem de güzel görünmeli; bu filmler stil ve duyguyu dengeliyor.', ['Zarif atmosferiyle seni içine çeker.', 'Duygu ve estetiği dengede tutar.', 'İzlemesi kadar konuşması da keyifli bir tat bırakır.']],
+  'Akrep': ['Akrep enerjisi yüzeyde kalmayan hikâyeleri sever; bu seçkide sırlar, gerilim ve yoğunluk var.', ['İçinde sakladığı sırlarla merakını besler.', 'Karanlık atmosferiyle güçlü bir iz bırakır.', 'Karakterlerin derinliğine inmeni sağlar.']],
+  'Yay': ['Yay için iyi film, yeni bir yere götüren filmdir; bu seçki macera, hareket ve özgürlük hissi taşıyor.', ['Sana yeni bir dünyanın kapısını açar.', 'Özgürlük duygusunu taze tutar.', 'Macera hissini son ana kadar taşır.']],
+  'Oğlak': ['Oğlak, emeğin ve dönüşümün karşılığını görmek ister; bu filmler hedefi olan karakterlerle ilerliyor.', ['Kararlı karakterlerin gücünü hatırlatır.', 'Emek ve dönüşüm temasını taşır.', 'Sonunda hak edilmiş bir tatmin bırakır.']],
+  'Kova': ['Kova için sıradan olmayan fikirler daha heyecanlıdır; bu seçki bakış açını biraz yerinden oynatacak.', ['Alışılmadık fikriyle merak uyandırır.', 'Farklı bir dünyanın kurallarını keşfettirir.', 'Zihninde yeni bir soru bırakır.']],
+  'Balık': ['Balık, gerçekliğin biraz yumuşadığı hikâyelerde iyi hisseder; bu seçki hayal gücüne alan açıyor.', ['Hayal gücüne yumuşak bir alan açar.', 'Duygusal tonuyla sana eşlik eder.', 'Gerçeklikten nazikçe uzaklaştırır.']]
+};
+
 function showColumnPage() {
   mainPage.hidden = true;
   columnPage.hidden = false;
@@ -98,6 +114,7 @@ async function loadZodiac(zodiac) {
   zodiacLabel.textContent = `${zodiac.toUpperCase()} İÇİN FİLM GECESİ`;
   zodiacTitle.textContent = title;
   zodiacCaption.textContent = caption;
+  zodiacWhy.innerHTML = `<strong>Neden ${zodiac}?</strong> ${zodiacWhyCopy[zodiac][0]}`;
   zodiacNav.querySelectorAll('button').forEach((item) => item.classList.toggle('active', item.dataset.zodiac === zodiac));
   zodiacMovies.innerHTML = '<p class="column-loading">Seçkin hazırlanıyor…</p>';
   try {
@@ -106,7 +123,7 @@ async function loadZodiac(zodiac) {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Seçki hazırlanamadı.');
-    zodiacMovies.innerHTML = data.movies.map((movie) => '<article class="column-movie"><img src="' + (movie.poster_url || posterFor(movie)) + '" alt="' + escapeHtml(movie.title) + ' afişi" /><div class="column-movie-copy"><h3>' + escapeHtml(movie.title) + '</h3><p class="column-meta">' + escapeHtml(movie.year) + ' · ' + escapeHtml(movie.genres.join(' · ')) + (movie.rating ? ` · ★ ${Number(movie.rating).toFixed(1)}` : '') + '</p><p>' + escapeHtml(movie.note) + '</p></div></article>').join('');
+    zodiacMovies.innerHTML = data.movies.map((movie, index) => '<article class="column-movie"><img src="' + (movie.poster_url || posterFor(movie)) + '" alt="' + escapeHtml(movie.title) + ' afişi" /><div class="column-movie-copy"><h3>' + escapeHtml(movie.title) + '</h3><p class="column-meta">' + escapeHtml(movie.year) + ' · ' + escapeHtml(movie.genres.join(' · ')) + (movie.rating ? ` · ★ ${Number(movie.rating).toFixed(1)}` : '') + '</p><p>' + escapeHtml(movie.note) + '</p><p class="column-match">' + escapeHtml(zodiacWhyCopy[zodiac][1][index % zodiacWhyCopy[zodiac][1].length]) + '</p></div></article>').join('');
   } catch (error) {
     zodiacMovies.innerHTML = '<p class="column-loading">' + escapeHtml(error.message) + '</p>';
   }
