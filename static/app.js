@@ -27,6 +27,7 @@ const genderOptions = document.querySelector('#gender-options');
 const demographicsNext = document.querySelector('#survey-demographics-next');
 const surveyResult = document.querySelector('#survey-result');
 const surveyBox = document.querySelector('.survey-box');
+const surveyClose = document.querySelector('#survey-close');
 const mainPage = document.querySelector('#main-page');
 const columnPage = document.querySelector('#column-page');
 const columnNav = document.querySelector('#column-nav');
@@ -48,6 +49,8 @@ soundToggle?.addEventListener('click', () => {
   soundToggle.setAttribute('aria-pressed', String(!isOn));
   soundToggle.lastChild.textContent = !isOn ? ' Ambiyans açık' : ' Ambiyans kapalı';
 });
+
+surveyClose.addEventListener('click', () => { surveyModal.hidden = true; });
 
 function updateClock() {
   currentTime.textContent = new Intl.DateTimeFormat('tr-TR', {
