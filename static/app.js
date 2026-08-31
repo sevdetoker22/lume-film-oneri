@@ -32,6 +32,9 @@ const mainPage = document.querySelector('#main-page');
 const columnPage = document.querySelector('#column-page');
 const columnNav = document.querySelector('#column-nav');
 const columnBack = document.querySelector('#column-back');
+const chatPage = document.querySelector('#chat-page');
+const chatNav = document.querySelector('#chat-nav');
+const chatBack = document.querySelector('#chat-back');
 const zodiacNav = document.querySelector('#zodiac-nav');
 const zodiacLabel = document.querySelector('#zodiac-label');
 const zodiacTitle = document.querySelector('#zodiac-title');
@@ -148,6 +151,7 @@ const zodiacSelections = {
 
 function showColumnPage() {
   mainPage.hidden = true;
+  chatPage.hidden = true;
   columnPage.hidden = false;
   window.scrollTo({ top: 0, behavior: 'auto' });
   loadZodiac('Koç');
@@ -155,6 +159,19 @@ function showColumnPage() {
 
 function hideColumnPage() {
   columnPage.hidden = true;
+  mainPage.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showChatPage() {
+  mainPage.hidden = true;
+  columnPage.hidden = true;
+  chatPage.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function hideChatPage() {
+  chatPage.hidden = true;
   mainPage.hidden = false;
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -175,6 +192,8 @@ async function loadZodiac(zodiac) {
 
 columnNav.addEventListener('click', (event) => { event.preventDefault(); showColumnPage(); });
 columnBack.addEventListener('click', hideColumnPage);
+chatNav.addEventListener('click', (event) => { event.preventDefault(); showChatPage(); });
+chatBack.addEventListener('click', hideChatPage);
 zodiacNav.addEventListener('click', (event) => {
   const zodiac = event.target.closest('[data-zodiac]')?.dataset.zodiac;
   if (zodiac) loadZodiac(zodiac);
