@@ -27,6 +27,15 @@ const genderOptions = document.querySelector('#gender-options');
 const demographicsNext = document.querySelector('#survey-demographics-next');
 const surveyResult = document.querySelector('#survey-result');
 const surveyBox = document.querySelector('.survey-box');
+const mainPage = document.querySelector('#main-page');
+const columnPage = document.querySelector('#column-page');
+const columnNav = document.querySelector('#column-nav');
+const columnBack = document.querySelector('#column-back');
+const zodiacNav = document.querySelector('#zodiac-nav');
+const zodiacLabel = document.querySelector('#zodiac-label');
+const zodiacTitle = document.querySelector('#zodiac-title');
+const zodiacCaption = document.querySelector('#zodiac-caption');
+const zodiacMovies = document.querySelector('#zodiac-movies');
 const featuredPoster = document.querySelector('#featured-poster');
 const featuredTitle = document.querySelector('#featured-title');
 const featuredMeta = document.querySelector('#featured-meta');
@@ -52,6 +61,60 @@ function posterFor(movie) {
   if (genres.includes('romantik') || genres.includes('komedi')) return '/static/images/trivia-music.png';
   return '/static/images/trivia-film.png';
 }
+
+const zodiacCopy = {
+  'Koç': ['Cesur ve temposu yüksek.', 'Harekete geçiren, enerjini taşıyacak hikâyeler.'],
+  'Boğa': ['Yavaşla, keyfine bak.', 'Sıcak, sakin ve görsel dünyası güçlü filmler.'],
+  'İkizler': ['Merakın yönü sürekli değişsin.', 'Zekice oyunlar ve sürprizler sevenler için.'],
+  'Yengeç': ['Kalbe iyi gelen hikâyeler.', 'Aile, dostluk ve tanıdık duyguların peşinde.'],
+  'Aslan': ['Işığı biraz üzerine çek.', 'Büyük duygular, büyük sahneler ve ilham veren karakterler.'],
+  'Başak': ['Detaylarda kaybolmak serbest.', 'İncelikli kurgu ve güçlü atmosfer bu seçkinin odağında.'],
+  'Terazi': ['Zarafet de bir ruh hali.', 'Romantizm, stil ve hafiflik arasında dengeli bir gece.'],
+  'Akrep': ['Gecenin biraz daha karanlık yüzü.', 'Gerilim, sır ve yoğun karakterlerle dolu hikâyeler.'],
+  'Yay': ['Ufku genişleten bir gece.', 'Yolculuk, macera ve özgürlük hissi taşıyan filmler.'],
+  'Oğlak': ['Sakin bir kararlılıkla izle.', 'Emek, hedef ve dönüşüm anlatan güçlü karakter öyküleri.'],
+  'Kova': ['Alışılmadık olana yer aç.', 'Farklı fikirler ve geleceğe dönük dünyalar için bir seçki.'],
+  'Balık': ['Biraz hayal, biraz şiir.', 'Duygusal ve düşsel bir akşama eşlik edecek filmler.']
+};
+
+function showColumnPage() {
+  mainPage.hidden = true;
+  columnPage.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'auto' });
+  loadZodiac('Koç');
+}
+
+function hideColumnPage() {
+  columnPage.hidden = true;
+  mainPage.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function loadZodiac(zodiac) {
+  const [title, caption] = zodiacCopy[zodiac];
+  zodiacLabel.textContent = `${zodiac.toUpperCase()} İÇİN FİLM GECESİ`;
+  zodiacTitle.textContent = title;
+  zodiacCaption.textContent = caption;
+  zodiacNav.querySelectorAll('button').forEach((item) => item.classList.toggle('active', item.dataset.zodiac === zodiac));
+  zodiacMovies.innerHTML = '<p class="column-loading">Seçkin hazırlanıyor…</p>';
+  try {
+    const response = await fetch('/api/zodiac-recommend', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ zodiac })
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Seçki hazırlanamadı.');
+    zodiacMovies.innerHTML = data.movies.map((movie) => '<article class="column-movie"><img src="' + (movie.poster_url || posterFor(movie)) + '" alt="' + escapeHtml(movie.title) + ' afişi" /><div class="column-movie-copy"><h3>' + escapeHtml(movie.title) + '</h3><p class="column-meta">' + escapeHtml(movie.year) + ' · ' + escapeHtml(movie.genres.join(' · ')) + (movie.rating ? ` · ★ ${Number(movie.rating).toFixed(1)}` : '') + '</p><p>' + escapeHtml(movie.note) + '</p></div></article>').join('');
+  } catch (error) {
+    zodiacMovies.innerHTML = '<p class="column-loading">' + escapeHtml(error.message) + '</p>';
+  }
+}
+
+columnNav.addEventListener('click', (event) => { event.preventDefault(); showColumnPage(); });
+columnBack.addEventListener('click', hideColumnPage);
+zodiacNav.addEventListener('click', (event) => {
+  const zodiac = event.target.closest('[data-zodiac]')?.dataset.zodiac;
+  if (zodiac) loadZodiac(zodiac);
+});
 
 function updateFeatured(movie) {
   if (!movie || !featuredPoster) return;

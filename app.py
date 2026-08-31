@@ -497,6 +497,22 @@ def movie_candidates(text: str, limit: int = 3) -> list[dict[str, Any]]:
     return tmdb_recommendations(text, limit) or rank_movies(text, limit)
 
 
+ZODIAC_PROMPTS = {
+    "Koç": "enerjik cesur hızlı tempolu aksiyon macera filmi",
+    "Boğa": "sıcak rahatlatıcı görsel olarak güzel dram romantik film",
+    "İkizler": "akıllı eğlenceli sürprizli komedi gizem filmi",
+    "Yengeç": "duygusal sıcak aile dostluk temalı film",
+    "Aslan": "gösterişli ilham veren müzik macera filmi",
+    "Başak": "incelikli düşündürücü gizem suç filmi",
+    "Terazi": "zarif romantik estetik komedi filmi",
+    "Akrep": "karanlık sürükleyici gerilim gizem filmi",
+    "Yay": "özgür ruhlu yolculuk macera komedi filmi",
+    "Oğlak": "azimli ilham veren biyografi dram filmi",
+    "Kova": "özgün gelecekçi bilim kurgu bağımsız film",
+    "Balık": "hayalperest duygusal fantastik romantik film",
+}
+
+
 def ask_movie_bot(message: str, choices: list[dict[str, Any]]) -> str:
     """Constrained local-LLM reply: it may only recommend from our catalog."""
     model, tokenizer = get_model()
@@ -765,6 +781,15 @@ def recommend_movies():
             "recommendations": ranked,
         }
     )
+
+
+@app.post("/api/zodiac-recommend")
+def zodiac_recommendations():
+    zodiac = (request.get_json(silent=True) or {}).get("zodiac", "")
+    prompt = ZODIAC_PROMPTS.get(zodiac)
+    if not prompt:
+        return jsonify({"error": "Geçerli bir burç seçin."}), 400
+    return jsonify({"zodiac": zodiac, "movies": movie_candidates(prompt, limit=3)})
 
 
 @app.post("/api/survey-recommend")
